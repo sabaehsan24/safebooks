@@ -2,7 +2,7 @@
 node_modules/
 
 # Capacitor build output
-dist/
+# dist/
 .next/
 build/
 
