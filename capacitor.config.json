@@ -1,0 +1,19 @@
+{
+  "appId": "com.safebooks.app",
+  "appName": "Safe Books",
+  "webDir": "dist",
+  "server": {
+    "url": "https://firebase-testing-alpha.vercel.app",
+    "cleartext": true
+  },
+  "android": {
+    "adjustMarginsForEdgeToEdge": "auto"
+  },
+  "plugins": {
+    "StatusBar": {
+      "overlaysWebView": false,
+      "style": "DARK",
+      "backgroundColor": "#ffffff"
+    }
+  }
+}

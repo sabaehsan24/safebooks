@@ -1,0 +1,42 @@
+# Node modules
+node_modules/
+
+# Capacitor build output
+dist/
+.next/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# macOS/iOS
+ios/build/
+ios/Pods/
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VSCode
+.vscode/
+
+# Others
+.idea/
+*.iml
+
+# Appflow
+.sourcemaps/
+
+# Ignore local properties
+android/local.properties
