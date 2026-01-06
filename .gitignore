@@ -40,3 +40,5 @@ yarn-error.log*
 
 # Ignore local properties
 android/local.properties
+
+keystore.properties

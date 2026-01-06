@@ -1,9 +1,8 @@
 {
   "appId": "com.safebooks.app",
-  "appName": "Safe Books",
-  "webDir": "dist",
+  "appName": "SafeBókhald",
   "server": {
-    "url": "https://firebase-testing-alpha.vercel.app",
+    "url": "https://safe-b-khald.vercel.app",
     "cleartext": true
   },
   "android": {

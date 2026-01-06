@@ -1,6 +1,6 @@
 {
-  "appId": "com.safebooks.app",
-  "appName": "Safe Books",
+  "appId": "com.leslogistic.SafeBokhald",
+  "appName": "SafeBókhald",
   "webDir": "dist",
   "android": {
     "adjustMarginsForEdgeToEdge": "auto"

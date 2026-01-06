@@ -16,6 +16,7 @@ Complete guide for wrapping the Safe Books web app into native Android/iOS apps 
 ## Step 1: Create a New Capacitor Project
 
 Create a new empty folder **outside** your web project:
+
 ```bash
 mkdir safe-books-mobile
 cd safe-books-mobile
@@ -36,6 +37,7 @@ npx cap init
 ## Step 2: Configure Capacitor to Use Live Web App
 
 Edit `capacitor.config.ts`:
+
 ```typescript
 import { CapacitorConfig } from '@capacitor/cli';
 
@@ -45,8 +47,8 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   server: {
     url: 'https://your-deployed-app.vercel.app', // Your live web app URL
-    cleartext: true
-  }
+    cleartext: true,
+  },
 };
 
 export default config;
@@ -57,12 +59,14 @@ export default config;
 ---
 
 ## Step 3: Add Mobile Platforms
+
 ```bash
 npx cap add android
 npx cap add ios  # Only if you have macOS + Xcode
 ```
 
 This creates:
+
 - `android/` folder with Android Studio project
 - `ios/` folder with Xcode project
 
@@ -71,6 +75,7 @@ This creates:
 ## Step 4: Install Required Plugins
 
 Install essential Capacitor plugins:
+
 ```bash
 npm install @capacitor/status-bar
 npm install @capacitor/assets
@@ -88,6 +93,7 @@ Already installed in Step 4, now configure it.
 ### A. Create Status Bar Setup Component
 
 Create `src/components/CapacitorSetup.tsx`:
+
 ```tsx
 'use client';
 
@@ -102,14 +108,14 @@ export function CapacitorSetup() {
         try {
           // Show the status bar
           await StatusBar.show();
-          
+
           // Style.Light = Dark/black icons (for light backgrounds)
           // Style.Dark = White icons (for dark backgrounds)
           await StatusBar.setStyle({ style: Style.Light });
-          
+
           // Set background color (works on Android 14 and below)
           await StatusBar.setBackgroundColor({ color: '#ffffff' });
-          
+
           console.log('Status bar configured');
         } catch (error) {
           console.error('Status bar error:', error);
@@ -125,6 +131,7 @@ export function CapacitorSetup() {
 ```
 
 **Important - Status Bar Style Names:**
+
 - ✅ `Style.Light` = **Dark/black icons** for light backgrounds
 - ✅ `Style.Dark` = **White icons** for dark backgrounds
 - ✅ `Style.Default` = Follows device theme (dark mode = white icons, light mode = black icons)
@@ -132,6 +139,7 @@ export function CapacitorSetup() {
 ### B. Add to Your Root Layout
 
 In `src/app/layout.tsx` or your main layout:
+
 ```tsx
 import { CapacitorSetup } from '@/components/CapacitorSetup';
 
@@ -150,6 +158,7 @@ export default function RootLayout({ children }) {
 ### C. Add Safe Area CSS
 
 Add to your global CSS file (e.g., `globals.css`):
+
 ```css
 /* Add padding to account for safe areas (notches, status bar, etc.) */
 body {
@@ -189,10 +198,12 @@ header {
 ### D. Color Coordination Guide
 
 **For Light Backgrounds (white, light gray):**
+
 ```tsx
 await StatusBar.setStyle({ style: Style.Light }); // Black icons
 await StatusBar.setBackgroundColor({ color: '#ffffff' });
 ```
+
 ```css
 body::before {
   background: #ffffff; /* Match status bar color */
@@ -200,10 +211,12 @@ body::before {
 ```
 
 **For Dark Backgrounds (dark gray, black):**
+
 ```tsx
 await StatusBar.setStyle({ style: Style.Dark }); // White icons
 await StatusBar.setBackgroundColor({ color: '#1a1f2e' });
 ```
+
 ```css
 body::before {
   background: #1a1f2e; /* Match status bar color */
@@ -219,10 +232,12 @@ body::before {
 ### Prepare Assets
 
 Create these files in your project root:
+
 - `icon.png` - 1024x1024px (app icon)
 - `splash.png` - 2732x2732px (splash screen)
 
 ### Generate Assets
+
 ```bash
 npx capacitor-assets generate
 ```
@@ -230,6 +245,7 @@ npx capacitor-assets generate
 ⚠️ **Note:** The command is `capacitor-assets generate`, NOT `cap assets` (old command).
 
 This will automatically generate:
+
 - Android icons (all densities)
 - iOS icons (all sizes)
 - Splash screens for both platforms
@@ -239,21 +255,25 @@ This will automatically generate:
 ## Step 7: Run & Build
 
 ### Android
+
 ```bash
 npx cap open android
 ```
 
 From Android Studio:
+
 1. Select device/emulator
 2. Click **Run** (green play button)
 3. For release: **Build** → **Generate Signed Bundle/APK**
 
 ### iOS (macOS only)
+
 ```bash
 npx cap open ios
 ```
 
 From Xcode:
+
 1. Select simulator/device
 2. Click **Run** (▶️ button)
 3. For release: **Product** → **Archive** → Submit to TestFlight/App Store
@@ -263,6 +283,7 @@ From Xcode:
 ## Step 8: Sync Changes
 
 Whenever you update plugins or configuration:
+
 ```bash
 npx cap sync
 ```
@@ -276,6 +297,7 @@ This updates both Android and iOS projects with latest changes.
 ⚠️ **Breaking Changes in Android 15+:**
 
 Starting with Android 15 (API 35+), the following are **no longer available**:
+
 - `setBackgroundColor()` - Status bar background is always transparent
 - `setOverlaysWebView()` - Status bar always overlays the webview
 
@@ -290,7 +312,7 @@ Starting with Android 15 (API 35+), the following are **no longer available**:
 ✅ **Auth & permissions work correctly** - Firebase Auth works like in browser  
 ✅ **Faster delivery** - No rebuilding app for UI changes  
 ✅ **Auto-updates** - Web app updates reflect immediately in mobile app  
-✅ **Single codebase** - Maintain one web app for all platforms  
+✅ **Single codebase** - Maintain one web app for all platforms
 
 ---
 
@@ -299,28 +321,32 @@ Starting with Android 15 (API 35+), the following are **no longer available**:
 📱 **App requires internet connection** - Loads from live web URL  
 🔄 **No App Store resubmission for UI fixes** - Only web deploy needed  
 🔐 **Firebase Auth works exactly like browser** - Same authentication flow  
-⚡ **Instant updates** - Changes to web app appear immediately in mobile app  
+⚡ **Instant updates** - Changes to web app appear immediately in mobile app
 
 ---
 
 ## Troubleshooting
 
 ### Status bar icons not visible
+
 - Check if `Style.Light` matches background (light bg = Style.Light)
 - Verify `body::before` color matches status bar color
 - On Android 15+, `setBackgroundColor` won't work, rely on CSS only
 
 ### Drawer/Sheet positioning issues
+
 - Ensure safe area CSS is applied (Step 5C)
 - Check z-index conflicts with `body::before`
 - Verify drawer has `inset-y-0` class for proper offset
 
 ### App not loading web content
+
 - Verify `server.url` in `capacitor.config.ts` is correct
 - Check if web app is accessible via HTTPS
 - Run `npx cap sync` after config changes
 
 ### Permission errors
+
 - Add required permissions in `AndroidManifest.xml` / `Info.plist`
 - Request permissions using Capacitor plugins, not web APIs
 
@@ -332,13 +358,14 @@ Starting with Android 15 (API 35+), the following are **no longer available**:
 🔗 **Setup deep linking** - Open specific pages from links/notifications  
 📊 **Add analytics** - Track mobile app usage separately  
 🔔 **Push notifications** - Engage users with notifications  
-📱 **App Store optimization** - Prepare screenshots, descriptions, keywords  
+📱 **App Store optimization** - Prepare screenshots, descriptions, keywords
 
 ---
 
 ## Store Submission Checklist
 
 ### Before Submission:
+
 - [ ] App icon (1024x1024) designed and generated
 - [ ] Splash screen created
 - [ ] Privacy policy URL added
@@ -350,12 +377,14 @@ Starting with Android 15 (API 35+), the following are **no longer available**:
 - [ ] Provisioning profiles set (iOS)
 
 ### Android:
+
 - [ ] Generate signed AAB (Android App Bundle)
 - [ ] Fill Google Play Console listing
 - [ ] Add feature graphic, screenshots
 - [ ] Complete questionnaire
 
 ### iOS:
+
 - [ ] Archive in Xcode
 - [ ] Upload to TestFlight
 - [ ] Add App Store metadata
@@ -364,6 +393,7 @@ Starting with Android 15 (API 35+), the following are **no longer available**:
 ---
 
 ## Useful Commands Reference
+
 ```bash
 # Sync changes to platforms
 npx cap sync
