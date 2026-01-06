@@ -42,3 +42,6 @@ yarn-error.log*
 android/local.properties
 
 keystore.properties
+
+# Icon generation script (utility, not needed in repo)
+generate-ios-icons.py
