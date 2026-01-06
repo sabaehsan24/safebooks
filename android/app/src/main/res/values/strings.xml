@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">SafeBókhald</string>
     <string name="title_activity_main">SafeBókhald</string>
-    <string name="package_name">com.safebooks.app</string>
-    <string name="custom_url_scheme">com.safebooks.app</string>
+    <string name="package_name">com.leslogistic.SafeBokhald</string>
+    <string name="custom_url_scheme">com.leslogistic.SafeBokhald</string>
 </resources>

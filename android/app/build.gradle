@@ -20,10 +20,10 @@ android {
         }
     }
 
-    namespace "com.safebooks.app"
+    namespace "com.leslogistic.SafeBokhald"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.safebooks.app"
+        applicationId "com.leslogistic.SafeBokhald"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
